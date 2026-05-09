@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendario de Contenido — Autos Rencar Mayo 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0e0e0e;
+  --white: #f5f3ef;
+  --accent: #d4420a;
+  --accent2: #f0a500;
+  --gray: #2a2a2a;
+  --gray2: #3d3d3d;
+  --muted: #888;
+  --card-bg: #181818;
+  --border: rgba(255,255,255,0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+}
+a { color: inherit; }
+
+/* HEADER */
+.header {
+  border-bottom: 1px solid var(--border);
+  padding: 2.5rem 2.5rem 2rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.header-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.header-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+}
+.header-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--white);
+}
+.header-title span { color: var(--accent); }
+.header-meta {
+  text-align: right;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.header-meta strong { color: var(--white); font-weight: 500; }
+
+/* STATS BAR */
+.stats {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.stat {
+  flex: 1;
+  min-width: 120px;
+  padding: 1.25rem 1.5rem;
+  border-right: 1px solid var(--border);
+}
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  color: var(--accent);
+  line-height: 1;
+}
+.stat-label { font-size: 11px; color: var(--muted); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* FILTERS */
+.filters {
+  padding: 1.25rem 2.5rem;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+.filter-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-right: 4px; }
+.filter-btn {
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.filter-btn:hover { border-color: var(--accent); color: var(--white); }
+.filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* MAIN */
+.main { padding: 2rem 2.5rem; }
+
+/* WEEK */
+.week { margin-bottom: 3rem; }
+.week-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.week-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem;
+  color: var(--gray2);
+  line-height: 1;
+  min-width: 60px;
+}
+.week-info { flex: 1; }
+.week-dates { font-size: 13px; color: var(--muted); }
+.week-desc { font-size: 11px; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; margin-top: 2px; }
+.week-line { flex: 1; height: 1px; background: var(--border); }
+
+/* CARDS GRID */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.card {
+  background: var(--card-bg);
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+}
+.card.humor::before { background: var(--accent2); }
+.card.emotion::before { background: #e05080; }
+.card.showcase::before { background: #2a8fff; }
+.card.engagement::before { background: #1dbf7a; }
+.card.edu::before { background: #9b6fff; }
+.card:hover { background: #222; }
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-day { font-size: 11px; color: var(--muted); font-weight: 500; }
+.plats { display: flex; gap: 4px; }
+.plt {
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 20px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.plt-ig { background: rgba(212,66,10,0.15); color: #ff7a55; border: 1px solid rgba(212,66,10,0.3); }
+.plt-tt { background: rgba(42,143,255,0.12); color: #6db8ff; border: 1px solid rgba(42,143,255,0.25); }
+.plt-fb { background: rgba(29,191,122,0.12); color: #4de0a0; border: 1px solid rgba(29,191,122,0.25); }
+
+.card-format {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.card.humor .card-format { color: var(--accent2); }
+.card.emotion .card-format { color: #e05080; }
+.card.showcase .card-format { color: #2a8fff; }
+.card.engagement .card-format { color: #1dbf7a; }
+.card.edu .card-format { color: #9b6fff; }
+
+.card-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+  line-height: 1.4;
+}
+.card-hook {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+  font-style: italic;
+}
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.card-obj {
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+.obj-engagement { background: rgba(29,191,122,0.12); color: #4de0a0; }
+.obj-reach { background: rgba(155,111,255,0.12); color: #b899ff; }
+.obj-trust { background: rgba(240,165,0,0.12); color: #f5c842; }
+.obj-sales { background: rgba(212,66,10,0.12); color: #ff7a55; }
+
+.card-links { display: flex; gap: 6px; align-items: center; }
+.inspo-link {
+  font-size: 10px;
+  color: var(--muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 20px;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.inspo-link:hover { border-color: var(--accent); color: var(--accent); }
+.script-btn {
+  font-size: 10px;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+}
+.script-btn:hover { border-color: var(--white); color: var(--white); }
+
+/* MODAL */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.overlay.open { display: flex; }
+.modal {
+  background: #181818;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  max-width: 560px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 2rem;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+  gap: 1rem;
+}
+.modal-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  color: var(--white);
+}
+.modal-close {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.modal-close:hover { color: var(--white); }
+.modal-body {
+  font-size: 13px;
+  color: #aaa;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+.modal-body strong { color: var(--white); font-weight: 500; }
+.modal-inspo {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.modal-inspo-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.modal-inspo a {
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid rgba(212,66,10,0.3);
+  padding: 3px 10px;
+  border-radius: 20px;
+  transition: all 0.15s;
+}
+.modal-inspo a:hover { background: rgba(212,66,10,0.12); }
+
+/* FOOTER */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+.footer-brand span { color: var(--accent); }
+.footer-note { font-size: 11px; color: var(--gray2); }
+
+/* HIDDEN */
+.hidden { display: none !important; }
+
+@media (max-width: 640px) {
+  .header, .main, .filters, .footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .cards { grid-template-columns: 1fr; }
+  .header-title { font-size: 2.5rem; }
+  .stats { flex-wrap: wrap; }
+  .stat { min-width: 50%; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-brand">
+    <div class="header-eyebrow">Calendario de contenido</div>
+    <div class="header-title">Autos <span>Rencar</span></div>
+  </div>
+  <div class="header-meta">
+    <strong>Mayo 2026</strong><br>
+    Instagram · TikTok · Facebook<br>
+    Lunes · Miércoles · Viernes
+  </div>
+</header>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">12</div><div class="stat-label">Reels</div></div>
+  <div class="stat"><div class="stat-num">4</div><div class="stat-label">Semanas</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Plataformas</div></div>
+  <div class="stat"><div class="stat-num">5</div><div class="stat-label">Formatos</div></div>
+</div>
+
+<div class="filters">
+  <span class="filter-label">Filtrar:</span>
+  <button class="filter-btn active" data-filter="all">Todos</button>
+  <button class="filter-btn" data-filter="humor">Humor</button>
+  <button class="filter-btn" data-filter="emotion">Emoción</button>
+  <button class="filter-btn" data-filter="showcase">Showcase</button>
+  <button class="filter-btn" data-filter="engagement">Engagement</button>
+  <button class="filter-btn" data-filter="edu">Educativo</button>
+</div>
+
+<main class="main" id="main"></main>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title"></div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-inspo" id="modal-inspo"></div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-brand">Autos <span>Rencar</span></div>
+  <div class="footer-note">Generado para uso interno del equipo de contenido</div>
+</footer>
+
+<script>
+const reels = [
+  {
+    week:1, day:"Jue 15 May", platforms:["ig","tt","fb"],
+    format:"Emoción", formatKey:"emotion",
+    title:"\"Me ascendieron\" — entrega de llaves",
+    hook:"Cada frase de vida, un auto diferente del inventario",
+    obj:"Conexión emocional", objKey:"engagement",
+    inspo:"https://www.instagram.com/reel/DXK0DRvga_Z/",
+    script:`OBJETIVO
+Generar identificación emocional con el espectador. El que lo ve dice "ese soy yo".
+
+ESTRUCTURA
+— Texto en pantalla: "Me ascendieron en el trabajo"
+  → Mano entregando llave / auto 1 del lote
+
+— Texto: "Siempre lo soñé desde chico"
+  → Entrega de llave / auto 2
+
+— Texto: "Es mi primer carro"
+  → Entrega de llave / auto más accesible del inventario
+
+— Texto: "Por fin pude"
+  → Entrega de llave / auto 4
+
+CIERRE EN PANTALLA
+"¿Cuál es tu motivo? El tuyo te está esperando."
++ Nombre del negocio + contacto
+
+MÚSICA: Trending, emotiva o inspiracional.
+DURACIÓN SUGERIDA: 20–30 seg.`
+  },
+  {
+    week:1, day:"Lun 19 May", platforms:["ig","tt"],
+    format:"Humor", formatKey:"humor",
+    title:"Pelea callejera: \"¿no sabes manejar?\"",
+    hook:"El cliente descubre que sí saben... vender",
+    obj:"Alcance orgánico", objKey:"reach",
+    inspo:"https://www.instagram.com/reel/DNowUIrRy49/",
+    script:`OBJETIVO
+Viralidad por humor. Engancha en los primeros 2 segundos.
+
+ESTRUCTURA
+— El vendedor va manejando su auto.
+  Alguien le pita y le grita: "¡No sabes manejar o qué!"
+
+— El vendedor se baja tranquilo y le dice:
+  "Pues no..."
+
+— El otro conductor, curioso al ver el auto, le pregunta:
+  "Oye... ¿y dónde compraste ese auto?"
+
+— Vendedor, con calma:
+  "En Autos Rencar."
+
+CIERRE EN PANTALLA
+Logo de Autos Rencar + dirección + número de contacto
+
+TONO: Ligero, rápido, buen timing de comedia.
+DURACIÓN SUGERIDA: 15–20 seg.`
+  },
+  {
+    week:1, day:"Mié 21 May", platforms:["ig","fb"],
+    format:"Showcase", formatKey:"showcase",
+    title:"\"¿Cuánto tienes para tu auto? Te mostramos opciones\"",
+    hook:"Del Versa al Corvette, hay para todos en el lote",
+    obj:"Generar ventas", objKey:"sales",
+    inspo:"https://www.instagram.com/reel/DWE0PPhkary/",
+    script:`OBJETIVO
+Mostrar rango de inventario y atraer compradores de cualquier presupuesto.
+
+ESTRUCTURA
+— Texto en pantalla: "¿Cuánto tienes para tu auto?"
+
+— Mostrar autos en orden ascendente:
+  1. Nissan Versa Advance — $125,000
+     "Económico, fácil de manejar, ideal para la ciudad"
+
+  2. VW Passat VR6 — $210,000
+     "Motor V6, interior premium, manejo deportivo"
+
+  3. Audi A5 Sportback — $335,000
+     "Turbocharged, tracción quattro, diseño europeo"
+
+  4. BYD Dolphin Mini — $340,000
+     "100% eléctrico, cero gasolina, tecnología de punta"
+
+  5. Chevrolet Camaro SS — $479,000
+     "V8 6.2L, 455 hp, pura adrenalina"
+
+  6. Corvette Stingray — $790,000
+     "V8 6.2L, 490 hp, ícono americano"
+
+  Cada auto: toma de 2–3 seg con precio y descripción visibles en pantalla.
+
+CIERRE
+"Tenemos para tu bolsillo y para tus sueños."
++ CTA: "Escríbenos con tu presupuesto"
+
+DURACIÓN SUGERIDA: 25–35 seg.`
+  },
+  {
+    week:2, day:"Lun 26 May", platforms:["ig","tt","fb"],
+    format:"Showcase", formatKey:"showcase",
+    title:"Autos familiares — 4 opciones en el showroom",
+    hook:"Presentador lista SUVs ideales para familia con precios reales",
+    obj:"Generar ventas", objKey:"sales",
+    inspo:"https://www.instagram.com/reel/DWkeL46DaR-/",
+    script:`OBJETIVO
+Conectar con familias que buscan espacio, seguridad y buen precio.
+
+ESTRUCTURA
+— Presentador en showroom:
+  "¿Buscas auto familiar? Aquí van 4 opciones reales."
+
+  1. VW Tiguan Highline 2018 — $287,000
+     "Espacio, tecnología y precio accesible."
+
+  2. Ford Explorer Limited 2016 — $217,000
+     "7 pasajeros. La clásica familiar."
+
+  3. Lincoln Aviator Reserve 2020 — $599,000
+     "Para la familia que viaja con estilo."
+
+  4. Mercedes-Benz GLE 450 — $699,000
+     "El lujo que tu familia merece."
+
+CIERRE
+"¿Cuál es la tuya? Visítanos y te ayudamos a elegir."
+
+TONO: Profesional pero cercano.
+DURACIÓN SUGERIDA: 30–40 seg.`
+  },
+  {
+    week:2, day:"Mié 28 May", platforms:["ig","tt"],
+    format:"Humor", formatKey:"humor",
+    title:"3 razones para comprarle una camioneta a tu hijo",
+    hook:"Humor absurdo con Ram Rebel, Raptor o Wrangler",
+    obj:"Alcance orgánico", objKey:"reach",
+    inspo:"https://www.instagram.com/reel/DHHM0DHuEqd/",
+    script:`OBJETIVO
+Viralidad por humor. Ideal para que padres etiqueten a sus hijos.
+
+ESTRUCTURA
+— Intro: "3 razones para comprarle ESTA camioneta a tu hijo"
+  (mostrar Ram Rebel o F-150 Raptor)
+
+  Razón 1: "Para que haga ejercicio subiendo y bajando"
+  (toma de lo alto que está la cabina)
+
+  Razón 2: "Para que llegue puntual — con esa camioneta nadie se le atraviesa en el tráfico"
+  (toma frontal intimidante de la camioneta)
+
+  Razón 3: "Para que no te pida el tuyo — ya tiene el suyo, el tuyo es tuyo"
+  (toma del interior, volante, detalles)
+
+  Razón 4: "Para que sus amigos lo respeten — nadie llega al antro en Raptor y pasa desapercibido"
+  (toma exterior épica de la camioneta)
+
+CIERRE
+"Papá sabio, hijo feliz. Tenemos varias opciones."
++ precio visible + CTA
+
+DURACIÓN SUGERIDA: 20–25 seg.`
+  },
+  {
+    week:2, day:"Vie 30 May", platforms:["ig","fb"],
+    format:"Engagement", formatKey:"engagement",
+    title:"Adivina la marca sin ver el logo",
+    hook:"Detalles del auto en primer plano — la gente comenta en masa",
+    obj:"Máximo engagement", objKey:"engagement",
+    inspo:"https://www.instagram.com/reel/DUblpX2DykA/",
+    script:`OBJETIVO
+Disparar comentarios. Es de los formatos con mayor interacción orgánica.
+
+ESTRUCTURA
+— Texto: "¿De qué marca es este auto? Comenta sin ver el logo"
+
+— Mostrar close-ups: parrilla, faros, rines, volante, logo tapado.
+  (Usar autos reconocibles: BMW, Corvette, Jeep Wrangler, F-150 Raptor)
+
+— Pausa de suspenso...
+
+— Revelar: se quita el tape del logo.
+
+VARIACIÓN: hacer varios autos en un mismo reel.
+
+CIERRE
+"¿Lo adivinaste? Este y más en nuestro lote."
++ CTA: invitar a comentar
+
+CAPTION: "Comenta si lo adivinaste antes de que se revelara."
+
+DURACIÓN SUGERIDA: 20–30 seg.`
+  },
+  {
+    week:3, day:"Lun 2 Jun", platforms:["ig","tt","fb"],
+    format:"Humor", formatKey:"humor",
+    title:"\"Si yo pongo $100 y tú pones el resto...\"",
+    hook:"F-150 Raptor, Sierra Denali, Wrangler — humor en pareja",
+    obj:"Alcance orgánico — etiquetas", objKey:"reach",
+    inspo:"https://www.instagram.com/reel/DHFiCCmsHJZ/",
+    script:`OBJETIVO
+Que parejas se etiqueten entre sí. Altísimo alcance orgánico.
+
+ESTRUCTURA
+— Toma del F-150 Raptor $737,000:
+  "Si yo pongo $100 y mi esposo pone $736,900... ya se armó el Raptor"
+
+— Toma Sierra Denali $1,095,000:
+  "Si yo pongo $100 y él pone el resto... ya se armó la Sierra Denali"
+
+— Toma Wrangler Rubicon 2023 $977,000:
+  "Si yo pongo $100... ya saben."
+
+CIERRE
+"Etiqueta a quien pondría el resto."
++ nombre del negocio
+
+MÚSICA: Trending, juguetona.
+DURACIÓN SUGERIDA: 20–30 seg.`
+  },
+  {
+    week:3, day:"Mié 4 Jun", platforms:["ig","tt"],
+    format:"Showcase", formatKey:"showcase",
+    title:"1 Ford, 4 versiones — ¿cuál es la tuya?",
+    hook:"De la Lobo 2007 a la F-250 King Ranch, todo en el lote",
+    obj:"Generar ventas", objKey:"sales",
+    inspo:"https://www.instagram.com/reel/DWASWWZkYXv/",
+    script:`OBJETIVO
+Mostrar rango de una sola marca para distintos presupuestos. Que cada quien se identifique con una versión.
+
+ESTRUCTURA
+— Vendedor parado frente a las camionetas en el lote:
+
+  "Si eres de Ford, hoy es tu día. Porque tenemos no una,
+   no dos... cuatro Fords en el lote ahorita mismo.
+   Y hay para todos los bolsillos."
+
+— Camina hacia la primera:
+
+  1. Ford Lobo Lariat 2007 — $210,000
+     "La clásica. La que nunca falla, la que ya tiene
+      historia y todavía tiene mucho por dar.
+      Si quieres entrar al mundo Ford sin quebrarte, esta es."
+
+— Siguiente:
+
+  2. F-150 STX 2021 — $549,000
+     "Ya estamos hablando de otra liga. Moderna, potente,
+      con toda la tecnología de la generación actual.
+      La que te voltean a ver cuando llegas."
+
+— Siguiente:
+
+  3. F-150 Raptor 4x4 2017 — $737,000
+     "Para los que no van por el camino fácil.
+      Literalmente. Suspensión de alto rendimiento,
+      tracción 4x4, y ese sonido que ya todos conocen.
+      Esta no es para cualquiera."
+
+— Última, la más imponente:
+
+  4. F-250 Super Duty King Ranch 2023 — $1,489,000
+     "Y si quieres el tope de gama... aquí está.
+      King Ranch. El que lo tiene todo.
+      Motor V8, interiores de cuero, capacidad de carga brutal.
+      Para los que lo merecen todo."
+
+— Cierra a cámara:
+
+  "¿Con cuál te quedas? Comenta tu número
+   y si quieres verla en persona, ya sabes dónde estamos."
+
+CIERRE EN PANTALLA
+Logo Autos Rencar + dirección + WhatsApp
+
+DURACIÓN SUGERIDA: 45–60 seg.`
+  },
+  {
+    week:3, day:"Vie 6 Jun", platforms:["ig","fb"],
+    format:"Emoción", formatKey:"emotion",
+    title:"\"Las inalcanzables están en la agencia\"",
+    hook:"F-250 King Ranch o F-150 Ranger Lariat 1979 — aspiracional puro",
+    obj:"Conexión aspiracional", objKey:"engagement",
+    inspo:"https://www.instagram.com/reel/DUHh82WDk5o/",
+    script:`OBJETIVO
+Despertar deseo. Que la gente guarde el reel y lo comparta.
+
+ESTRUCTURA
+— Tomas cinematográficas lentas del auto más llamativo del lote.
+  (F-150 Ranger Lariat 1979 $1,590,000 o F-250 King Ranch $1,489,000)
+
+— Texto en pantalla, letra por letra:
+  "Y recuerden..."
+  "Las inalcanzables..."
+  "están en la agencia."
+
+— Toma final: logo del negocio + dirección.
+
+MÚSICA: Dramática, épica, trending.
+
+NOTA: Sin hablar, sin texto extra. Que el auto hable solo.
+DURACIÓN SUGERIDA: 15–20 seg.`
+  },
+  {
+    week:4, day:"Lun 9 Jun", platforms:["ig","tt","fb"],
+    format:"Educativo", formatKey:"edu",
+    title:"BYD Dolphin Mini — lo que ahorras en gasolina te rompe la cabeza",
+    hook:"Cálculo real: $2,000/mes en gasolina = $24,000 al año perdidos",
+    obj:"Educar + generar interés", objKey:"reach",
+    inspo:null,
+    script:`OBJETIVO
+Convencer con números reales. Hablar directo al bolsillo del espectador.
+
+ESTRUCTURA
+— Presentador frente al BYD Dolphin Mini en el lote:
+
+  "A ver, párate un momento. ¿Cuánto gastas tú en gasolina al mes?
+   $1,500, $2,000, $2,500... seamos honestos, la mayoría anda en $2,000."
+
+— Camina alrededor del auto mientras habla:
+
+  "Eso son $24,000 al año. En 5 años son $120,000 pesos
+   que literalmente le estás regalando a la gasolinera.
+   Y eso sin contar que la gasolina sigue subiendo."
+
+— Se detiene frente al auto, lo señala:
+
+  "Este es el BYD Dolphin Mini 2026. 100% eléctrico.
+   ¿Cuánto gastas en cargarlo? Aproximadamente $300 al mes.
+   Trescientos pesos. No tres mil, trescientos."
+
+— Hace el cálculo con los dedos o en cámara:
+
+  "Eso es un ahorro de más de $1,700 al mes.
+   En un año: más de $20,000 en tu bolsillo.
+   En 5 años: $102,000 pesos que se quedan contigo."
+
+— Toca el cofre del auto:
+
+  "Y aparte de eso: cero mantenimiento de motor,
+   cero cambios de aceite, cero filtros.
+   El auto más barato de mantener que vas a encontrar."
+
+— Cierra a cámara:
+
+  "¿Tiene sentido comprarlo? Tú decides.
+   Nosotros ya lo tenemos en el lote."
+
+CIERRE EN PANTALLA
+"BYD Dolphin Mini 2026 — $340,000"
++ CTA: número de WhatsApp / "Agenda tu prueba de manejo"
+
+DURACIÓN SUGERIDA: 45–60 seg.`
+  },
+  {
+    week:4, day:"Mié 11 Jun", platforms:["ig","tt"],
+    format:"Humor", formatKey:"humor",
+    title:"Prueba de manejo — \"¿y si pasamos por...?\"",
+    hook:"La cliente pide hacer mandados en plena prueba de manejo",
+    obj:"Viralidad + CTA a prueba de manejo", objKey:"reach",
+    inspo:"https://www.instagram.com/reel/DP49eoLAVBe/",
+    script:`OBJETIVO
+Viralidad por humor absurdo. CTA directo a agendar prueba de manejo.
+
+ESTRUCTURA
+— Vendedor y cliente en prueba de manejo, cliente manejando.
+
+  Cliente: "¿Y si pasamos por el súper? Es que ya no tengo nada en casa."
+  Vendedor: "...esto es una prueba de manejo."
+
+  Cliente: "¿Y si recogemos a mi mamá? Vive aquí cerquita."
+  Vendedor: (cara de no poder creer)
+
+  Cliente: "¿Y si vamos por mis compras de Amazon que ya llegaron?"
+  Vendedor: (se pone el cinturón resignado) "...bueno."
+
+CIERRE
+"Agenda tu prueba de manejo."
+"Lo que pase en ella, queda entre nosotros."
++ CTA: número de WhatsApp
+
+TONO: Rápido, bien actuado, timing de comedia.
+DURACIÓN SUGERIDA: 20–30 seg.`
+  },
+  {
+    week:4, day:"Vie 13 Jun", platforms:["ig","fb"],
+    format:"Showcase", formatKey:"showcase",
+    title:"¿Buscas que parezca nuevo pero a precio de seminuevo?",
+    hook:"Tour cinematográfico del showroom — autos impecables",
+    obj:"Generar visitas al lote", objKey:"sales",
+    inspo:"https://www.instagram.com/reel/DWjkAwTjgoG/",
+    script:`OBJETIVO
+Presentar Autos Rencar como el lugar donde encuentras seminuevos en condiciones impecables.
+
+ESTRUCTURA
+— Vendedor caminando por el lote o showroom, tomas del inventario de fondo:
+
+  "Si estás buscando un auto seminuevo pero quieres que
+   se sienta como nuevo... tienes que venir a Autos Rencar."
+
+— Camina hacia los autos y los va señalando uno por uno:
+
+  "Mira este Audi A5 Sportback. Diseño europeo,
+   tracción quattro, turbocharged. $335,000.
+   ¿Le ves algo de seminuevo? Yo no."
+
+— Siguiente auto:
+
+  "Este Camaro SS. V8, 455 caballos de fuerza.
+   Lo ves y no puedes creer el precio. $479,000."
+
+— Siguiente:
+
+  "La Lincoln Aviator Reserve 2020. Lujo, espacio,
+   tecnología. Todo en uno. $599,000."
+
+— Cierra frente a cámara:
+
+  "Todos nuestros autos pasan por revisión antes de
+   llegar al lote. Lo que ves, es lo que te llevas.
+   Sin sorpresas, sin letras chiquitas."
+
+— Paso final, directo a cámara:
+
+  "Visítanos. Estamos en [dirección].
+   O escríbenos por WhatsApp y te asesoramos
+   sin ningún compromiso."
+
+CIERRE EN PANTALLA
+Logo Autos Rencar + dirección + número de WhatsApp
+
+TONO: Profesional, cercano, confiable.
+DURACIÓN SUGERIDA: 40–50 seg.`
+  }
+];
+
+const weekLabels = {
+  1: { dates:"15 · 19 · 21 May", theme:"Arranque fuerte — emoción + viralidad" },
+  2: { dates:"26 · 28 · 30 May", theme:"Familias + humor + engagement" },
+  3: { dates:"2 · 4 · 6 Jun",   theme:"Pareja + camionetas + aspiracional" },
+  4: { dates:"9 · 11 · 13 Jun", theme:"Eléctrico + humor + showroom" }
+};
+
+let activeFilter = "all";
+
+function render() {
+  const main = document.getElementById("main");
+  main.innerHTML = "";
+  const filtered = activeFilter === "all" ? reels : reels.filter(r => r.formatKey === activeFilter);
+  const byWeek = {};
+  filtered.forEach(r => { if (!byWeek[r.week]) byWeek[r.week] = []; byWeek[r.week].push(r); });
+
+  Object.keys(byWeek).sort().forEach(w => {
+    const wl = weekLabels[w];
+    const section = document.createElement("div");
+    section.className = "week";
+    section.innerHTML = `
+      <div class="week-header">
+        <div class="week-num">0${w}</div>
+        <div class="week-info">
+          <div class="week-dates">${wl.dates}</div>
+          <div class="week-desc">${wl.theme}</div>
+        </div>
+        <div class="week-line"></div>
+      </div>
+      <div class="cards" id="wk${w}"></div>
+    `;
+    main.appendChild(section);
+    const grid = section.querySelector(`#wk${w}`);
+    byWeek[w].forEach(r => {
+      const card = document.createElement("div");
+      card.className = `card ${r.formatKey}`;
+      const plats = r.platforms.map(p => `<span class="plt plt-${p}">${p.toUpperCase()}</span>`).join("");
+      const inspoBtn = r.inspo
+        ? `<a class="inspo-link" href="${r.inspo}" target="_blank">↗ Inspo</a>`
+        : `<span style="font-size:10px;color:#444">Sin inspo</span>`;
+      card.innerHTML = `
+        <div class="card-top">
+          <span class="card-day">${r.day}</span>
+          <div class="plats">${plats}</div>
+        </div>
+        <div class="card-format">${r.format}</div>
+        <div class="card-title">${r.title}</div>
+        <div class="card-hook">${r.hook}</div>
+        <div class="card-footer">
+          <span class="card-obj obj-${r.objKey}">${r.obj}</span>
+          <div class="card-links">
+            ${inspoBtn}
+            <button class="script-btn" onclick="openModal(${reels.indexOf(r)})">Script</button>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  });
+}
+
+function openModal(idx) {
+  const r = reels[idx];
+  document.getElementById("modal-title").textContent = r.title;
+  document.getElementById("modal-body").textContent = r.script;
+  const inspoEl = document.getElementById("modal-inspo");
+  if (r.inspo) {
+    inspoEl.innerHTML = `<span class="modal-inspo-label">Referencia:</span><a href="${r.inspo}" target="_blank">Ver reel de inspo ↗</a>`;
+    inspoEl.style.display = "flex";
+  } else {
+    inspoEl.style.display = "none";
+  }
+  document.getElementById("overlay").classList.add("open");
+}
+
+function closeModal() {
+  document.getElementById("overlay").classList.remove("open");
+}
+
+document.getElementById("overlay").addEventListener("click", function(e) {
+  if (e.target === this) closeModal();
+});
+
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    activeFilter = btn.dataset.filter;
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.toggle("active", b === btn));
+    render();
+  });
+});
+
+render();
+</script>
+</body>
+</html>
